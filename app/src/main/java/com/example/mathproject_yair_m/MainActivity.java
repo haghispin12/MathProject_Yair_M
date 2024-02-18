@@ -1,5 +1,9 @@
 package com.example.mathproject_yair_m;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,17 +23,22 @@ public class MainActivity extends AppCompatActivity {
     private Button btnTimes;
     private Button btnChallenge;
     private Button checkBtn;
-    private Exercise exercise;
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        exercise = new Exercise();
-
         initViews();
+
+        mainViewModel = new ViewModelProvider(this,new ViewModelProvider.NewInstanceFactory()).get(MainViewModel.class);
+
         createClickListener();
+        Intent intent = new Intent();
+        String username = intent.getStringExtra("username");
+
+        createToast(username);
     }
 
     private void initViews(){
@@ -46,28 +55,28 @@ public class MainActivity extends AppCompatActivity {
         btnTimes20.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view){
-             exercise.setNum1(exercise.generateRandom(0,20));
-             exercise.setNum2(exercise.generateRandom(0,20));
-
-             updateViews();
+           mainViewModel.vTimes20();
          }
         });
 
         btnTimes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                exercise.setNum1(exercise.generateRandom(0,10));
-                exercise.setNum2(exercise.generateRandom(0,10));
+                mainViewModel.vTimes10();
+            }
+        });
 
-                updateViews();
+        btnChallenge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                mainViewModel.vChallenge();
             }
         });
 
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-
-                Boolean isCorrect = exercise.checkCorrect(answerText.getText().toString());
+                Boolean isCorrect = mainViewModel.vIsCorrect(answerText.getText().toString());
                if(isCorrect){
                    createToast("true");
                }else{
@@ -75,16 +84,25 @@ public class MainActivity extends AppCompatActivity {
                }
             }
         });
-    }
 
-
-    public void updateViews(){
-        numbText1.setText(exercise.getNum1()+"");
-        numbText2.setText(exercise.getNum2()+"");
-
+//        mainViewModel.vNum1.observe(this, new Observer<Integer>() {
+//            @Override
+//            public void onChanged(
+//                    @Nullable Integer num1) {
+//                numbText1.setText(num1+"");
+//            }
+//        });
+//
+//        mainViewModel.vNum2.observe(this, new Observer<Integer>() {
+//            @Override
+//            public void onChanged(@Nullable Integer num2) {
+//                numbText2.setText(num2+"");
+//            }
+//        });
     }
 
     public void createToast(String msg){
+
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 
