@@ -1,10 +1,7 @@
 package com.example.mathproject_yair_m;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
+import android.app.Instrumentation;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +9,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Random;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +27,19 @@ public class MainActivity extends AppCompatActivity {
     private Button btnTimes;
     private Button btnChallenge;
     private Button checkBtn;
+    private Button rateButton;
     private MainViewModel mainViewModel;
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    int rate = result.getData().getIntExtra("rate", -1);
+                    createToast(rate+"");
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
 
-        mainViewModel = new ViewModelProvider(this,new ViewModelProvider.NewInstanceFactory()).get(MainViewModel.class);
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         createClickListener();
-        Intent intent = new Intent();
+        Intent intent = getIntent();
         String username = intent.getStringExtra("username");
 
-        createToast(username);
+        createToast(username+"");
+        setTitle(username);
     }
 
     private void initViews(){
@@ -48,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         btnTimes20 = findViewById(R.id.btnTimes20);
         btnTimes = findViewById(R.id.btnTimes);
         checkBtn = findViewById(R.id.checkBtn);
+        rateButton= findViewById(R.id.rateBtn);
         btnChallenge = findViewById(R.id.btnChallenge);
     }
 
@@ -85,24 +103,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        mainViewModel.vNum1.observe(this, new Observer<Integer>() {
-//            @Override
-//            public void onChanged(
-//                    @Nullable Integer num1) {
-//                numbText1.setText(num1+"");
-//            }
-//        });
-//
-//        mainViewModel.vNum2.observe(this, new Observer<Integer>() {
-//            @Override
-//            public void onChanged(@Nullable Integer num2) {
-//                numbText2.setText(num2+"");
-//            }
-//        });
+        rateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,RateActivity.class);
+               activityResultLauncher.launch(intent);
+            }
+        });
+
+        mainViewModel.vNum1.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(
+                    @Nullable Integer num1) {
+                numbText1.setText(num1+"");
+            }
+        });
+
+        mainViewModel.vNum2.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer num2) {
+                numbText2.setText(num2+"");
+            }
+        });
     }
 
     public void createToast(String msg){
-
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 

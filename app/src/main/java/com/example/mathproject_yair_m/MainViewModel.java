@@ -1,8 +1,8 @@
 package com.example.mathproject_yair_m;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
 
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 public class MainViewModel extends ViewModel {
 
