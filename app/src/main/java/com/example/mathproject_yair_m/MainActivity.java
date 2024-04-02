@@ -15,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -28,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private Button btnChallenge;
     private Button checkBtn;
     private Button rateButton;
+    private Button showUsers_btn;
     private MainViewModel mainViewModel;
+    private FragmentTransaction trans;
+
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     int rate = result.getData().getIntExtra("rate", -1);
+                    mainViewModel.user.setRate(rate);
                     createToast(rate+"");
                 }
             }
@@ -49,10 +54,15 @@ public class MainActivity extends AppCompatActivity {
         initViews();
 
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        trans = getSupportFragmentManager().beginTransaction();
 
         createClickListener();
         Intent intent = getIntent();
+
         String username = intent.getStringExtra("username");
+        mainViewModel.vUpdateUsername(username);
+
+
 
         createToast(username+"");
         setTitle(username);
@@ -66,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         btnTimes = findViewById(R.id.btnTimes);
         checkBtn = findViewById(R.id.checkBtn);
         rateButton= findViewById(R.id.rateBtn);
+        showUsers_btn=findViewById(R.id.showUsers_btn);
         btnChallenge = findViewById(R.id.btnChallenge);
     }
 
@@ -108,6 +119,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,RateActivity.class);
                activityResultLauncher.launch(intent);
+            }
+        });
+
+        showUsers_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                trans.add(R.id.frameLayout,new ShowUserFragment());
+                trans.commit();
             }
         });
 

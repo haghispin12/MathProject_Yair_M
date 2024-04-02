@@ -11,6 +11,15 @@
     android:gravity="center"
     android:padding="10px"
     tools:context=".RateActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:textSize="40sp"
+        android:textColorHint="@android:color/darker_gray"
+        android:gravity="center"
+        android:hint="0"
+        android:textColor="@color/black"
+        android:id="@+id/rateValue"
+        android:layout_height="wrap_content"/>
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="match_parent"

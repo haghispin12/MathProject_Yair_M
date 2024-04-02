@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frameLayout"
+    android:background="@color/white"
+    android:padding="10px"
+    tools:context=".ShowUserFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:text="user: "
+            android:layout_weight="50"
+            android:id="@+id/usernameText"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_height="match_parent"/>
+<!--        <TextView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:text="socre: "-->
+<!--            android:layout_weight="50"-->
+<!--            android:gravity="center"-->
+<!--            android:id="@+id/scoreText"-->
+<!--            android:textColor="@android:color/darker_gray"-->
+<!--            android:textSize="20sp"-->
+<!--            android:layout_height="match_parent"/>-->
+        <TextView
+            android:layout_width="0dp"
+            android:text="rating: "
+            android:layout_weight="50"
+            android:gravity="center"
+            android:id="@+id/ratingText"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="20sp"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:gravity="center"
+       android:layout_gravity="center"
+       android:layout_marginTop="8dp"
+       android:orientation="vertical"
+       android:layout_height="wrap_content">
+       <Button
+           android:layout_width="wrap_content"
+           android:padding="20px"
+           android:textColor="@color/white"
+           android:id="@+id/addPicBtn"
+           android:layout_marginBottom="20px"
+           android:text="add picture"
+           android:background="@color/purple_500"
+           android:layout_height="wrap_content"/>
+       <Button
+           android:layout_width="wrap_content"
+           android:id="@+id/addUserBtn"
+           android:padding="20px"
+           android:textColor="@color/white"
+           android:text="add user"
+           android:background="@color/purple_500"
+           android:layout_height="wrap_content"/>
+       <ImageView
+           android:layout_width="match_parent"
+           android:id="@+id/img"
+           android:layout_height="match_parent"/>
+   </LinearLayout>
+</FrameLayout>
