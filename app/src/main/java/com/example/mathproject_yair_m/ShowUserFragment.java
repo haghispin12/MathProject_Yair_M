@@ -29,6 +29,7 @@ public class ShowUserFragment extends Fragment {
     MainViewModel mainViewModel;
     TextView usernameText;
     TextView ratingText;
+    TextView scoreText;
     Button addPicBtn;
     ImageView img;
     Uri uri;
@@ -68,11 +69,13 @@ public class ShowUserFragment extends Fragment {
         ratingText= view.findViewById(R.id.ratingText);
         addPicBtn=view.findViewById(R.id.addPicBtn);
         img=view.findViewById(R.id.img);
+        scoreText=view.findViewById(R.id.scoreText);
     }
 
     private void  insertValues(MainViewModel mainViewModel){
         usernameText.append(mainViewModel.user.getUsername());
         ratingText.append(mainViewModel.user.getRate()+"");
+        scoreText.append(mainViewModel.user.getScore()+"");
     }
 
     private void createClickListener(){

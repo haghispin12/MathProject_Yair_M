@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Button showUsers_btn;
     private MainViewModel mainViewModel;
     private FragmentTransaction trans;
+    private int type;
 
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
@@ -84,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
         btnTimes20.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view){
-           mainViewModel.vTimes20();
+             mainViewModel.vTimes20();
+             type=1;
          }
         });
 
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 mainViewModel.vTimes10();
+                type=0;
             }
         });
 
@@ -99,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 mainViewModel.vChallenge();
+                type=2;
             }
         });
 
@@ -108,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 Boolean isCorrect = mainViewModel.vIsCorrect(answerText.getText().toString());
                if(isCorrect){
                    createToast("true");
+                   mainViewModel.vUpdateScore(type);
                }else{
                    createToast("false");
                }

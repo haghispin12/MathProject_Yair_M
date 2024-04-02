@@ -22,15 +22,15 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_height="match_parent"/>
-<!--        <TextView-->
-<!--            android:layout_width="0dp"-->
-<!--            android:text="socre: "-->
-<!--            android:layout_weight="50"-->
-<!--            android:gravity="center"-->
-<!--            android:id="@+id/scoreText"-->
-<!--            android:textColor="@android:color/darker_gray"-->
-<!--            android:textSize="20sp"-->
-<!--            android:layout_height="match_parent"/>-->
+        <TextView
+            android:layout_width="0dp"
+            android:text="socre: "
+            android:layout_weight="50"
+            android:gravity="center"
+            android:id="@+id/scoreText"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="20sp"
+            android:layout_height="match_parent"/>
         <TextView
             android:layout_width="0dp"
             android:text="rating: "

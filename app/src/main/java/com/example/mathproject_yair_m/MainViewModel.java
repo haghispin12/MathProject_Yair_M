@@ -23,18 +23,33 @@ public class MainViewModel extends ViewModel {
         exercise.times10();
         vNum1.setValue(exercise.getNum1());
         vNum2.setValue(exercise.getNum2());
+
     }
 
     public void vTimes20(){
         exercise.times20();
         vNum1.setValue(exercise.getNum1());
         vNum2.setValue(exercise.getNum2());
+
     }
 
     public void vChallenge(){
         exercise.challenge();
         vNum1.setValue(exercise.getNum1());
         vNum2.setValue(exercise.getNum2());
+
+    }
+
+    public void vUpdateScore(int type){
+        if(type==0){
+            user.setScore(10);
+        }
+        else if(type==1){
+            user.setScore(15);
+        }
+        else{
+            user.setScore(20);
+        }
     }
 
     public void vUpdateUsername(String name){
