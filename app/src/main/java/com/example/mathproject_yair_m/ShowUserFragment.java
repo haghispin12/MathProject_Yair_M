@@ -1,22 +1,23 @@
 package com.example.mathproject_yair_m;
 
 import android.app.Activity;
+import android.app.Instrumentation;
+import android.arch.lifecycle.ViewModelProvider;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
+import android.activity.result.ActivityResult;
+import android.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;

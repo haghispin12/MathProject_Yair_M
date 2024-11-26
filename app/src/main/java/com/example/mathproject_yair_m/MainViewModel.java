@@ -1,8 +1,7 @@
 package com.example.mathproject_yair_m;
 
-
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
 
 public class MainViewModel extends ViewModel {
 
@@ -40,17 +39,6 @@ public class MainViewModel extends ViewModel {
 
     }
 
-    public void vUpdateScore(int type){
-        if(type==0){
-            user.setScore(10);
-        }
-        else if(type==1){
-            user.setScore(15);
-        }
-        else{
-            user.setScore(20);
-        }
-    }
 
     public void vUpdateUsername(String name){
         user.setUsername(name);
