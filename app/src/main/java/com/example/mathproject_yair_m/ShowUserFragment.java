@@ -31,6 +31,7 @@ public class ShowUserFragment extends Fragment {
     Button addPicBtn;
     ImageView img;
     Uri uri;
+    Button addUserBtn;
 
     ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -87,6 +88,12 @@ public class ShowUserFragment extends Fragment {
                 Intent camIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 camIntent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
                 startCamera.launch(camIntent);
+            }
+        });
+        addUserBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }
