@@ -127,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
         showUsers_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                trans.add(R.id.frameLayout,new ShowUserFragment());
-                trans.commit();
+                Intent intent = new Intent(MainActivity.this, ShowAllUsers.class);
+                startActivity(intent);
             }
         });
 

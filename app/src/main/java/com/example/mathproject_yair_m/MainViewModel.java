@@ -4,6 +4,9 @@ package com.example.mathproject_yair_m;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mathproject_yair_m.modals.Exercise;
+import com.example.mathproject_yair_m.modals.User;
+
 public class MainViewModel extends ViewModel {
 
     Exercise exercise;
