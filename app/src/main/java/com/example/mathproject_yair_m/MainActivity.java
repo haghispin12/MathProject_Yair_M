@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private Button showUsers_btn;
     private MainViewModel mainViewModel;
     private FragmentTransaction trans;
+
 
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
@@ -127,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
         showUsers_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ShowAllUsers.class);
-                startActivity(intent);
+                trans.add(R.id.frameLayout,new ShowUserFragment());
+                trans.commit();
             }
         });
 

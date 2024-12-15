@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button loginButton;
     private EditText username;
 
     @Override
@@ -19,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginButton = findViewById(R.id.loginBtn);
+        Button loginButton = findViewById(R.id.loginBtn);
         username = findViewById(R.id.username);
 
         loginButton.setOnClickListener(new View.OnClickListener() {

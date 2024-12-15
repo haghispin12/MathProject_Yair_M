@@ -23,9 +23,12 @@ public class ShowAllUsers extends AppCompatActivity {
         rcShowUsers = findViewById(R.id.rcShowUsers);
         ArrayList<Fruit> fruits = new ArrayList<Fruit>();
         fruits.add(new Fruit("orange",R.drawable.img));
-        fruits.add(new Fruit("orange",R.drawable.img_1));
-        fruits.add(new Fruit("orange",R.drawable.img_2));
-        fruits.add(new Fruit("orange",R.drawable.img_3));
+        fruits.add(new Fruit("fdsfds",R.drawable.img_1));
+        fruits.add(new Fruit("sdfdsdsfds",R.drawable.img_2));
+        fruits.add(new Fruit("sdfdsfds",R.drawable.img_3));
+        fruits.add(new Fruit("12312",R.drawable.img_3));
+        fruits.add(new Fruit("sdfdsfds",R.drawable.img_3));
+        fruits.add(new Fruit("sdfdsfds",R.drawable.img_3));
 
         FruitAdapter fa = new FruitAdapter(fruits, new FruitAdapter.OnItemClickListener() {
             @Override

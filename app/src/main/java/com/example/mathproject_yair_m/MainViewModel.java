@@ -1,11 +1,18 @@
 package com.example.mathproject_yair_m;
 
 
+import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mathproject_yair_m.DB.DBHelper;
 import com.example.mathproject_yair_m.modals.Exercise;
 import com.example.mathproject_yair_m.modals.User;
+
+import java.util.ArrayList;
 
 public class MainViewModel extends ViewModel {
 
@@ -58,8 +65,18 @@ public class MainViewModel extends ViewModel {
     public void vUpdateUsername(String name){
         user.setUsername(name);
     }
-
+public void vUpdateUri(Uri uri){user.setUri(uri);}
     public Boolean vIsCorrect(String answer){
         return  exercise.checkCorrect(answer);
     }
+
+    public long dbAddUser(Context context){
+        DBHelper db = new DBHelper(context);
+        Log.d("user",user.getUri()+"");
+        long id = db.insert(user,context);
+        Log.d("yair1",id+"");
+        return id;
+    }
+
+
 }

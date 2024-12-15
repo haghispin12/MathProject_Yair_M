@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ShowUserFragment extends Fragment {
@@ -69,6 +70,7 @@ public class ShowUserFragment extends Fragment {
         addPicBtn=view.findViewById(R.id.addPicBtn);
         img=view.findViewById(R.id.img);
         scoreText=view.findViewById(R.id.scoreText);
+        addUserBtn=view.findViewById(R.id.addUserBtn);
     }
 
     private void  insertValues(MainViewModel mainViewModel){
@@ -87,13 +89,15 @@ public class ShowUserFragment extends Fragment {
                 uri = requireContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
                 Intent camIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 camIntent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+                mainViewModel.vUpdateUri(uri);
                 startCamera.launch(camIntent);
             }
         });
         addUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                long id = mainViewModel.dbAddUser(getActivity());
+                Toast.makeText(getActivity(),"id"+id,Toast.LENGTH_SHORT);
             }
         });
     }
