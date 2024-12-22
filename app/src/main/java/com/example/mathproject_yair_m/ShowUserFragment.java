@@ -97,7 +97,7 @@ public class ShowUserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 long id = mainViewModel.dbAddUser(getActivity());
-                Toast.makeText(getActivity(),"id"+id,Toast.LENGTH_SHORT);
+                Toast.makeText(getActivity(),"id "+id,Toast.LENGTH_SHORT).show();
             }
         });
     }
