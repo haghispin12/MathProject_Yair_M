@@ -20,62 +20,76 @@ public class MainViewModel extends ViewModel {
     User user;
     MutableLiveData<Integer> vNum1;
     MutableLiveData<Integer> vNum2;
+    MutableLiveData<ArrayList<User>> users;
 
-
-    public MainViewModel(){
+    public MainViewModel() {
         exercise = new Exercise();
         user = new User();
         vNum1 = new MutableLiveData<>();
         vNum2 = new MutableLiveData<>();
+        users = new MutableLiveData<>(new ArrayList<User>());
     }
 
-    public void vTimes10(){
+    public void vTimes10() {
         exercise.times10();
         vNum1.setValue(exercise.getNum1());
         vNum2.setValue(exercise.getNum2());
 
     }
 
-    public void vTimes20(){
+    public void vTimes20() {
         exercise.times20();
         vNum1.setValue(exercise.getNum1());
         vNum2.setValue(exercise.getNum2());
 
     }
 
-    public void vChallenge(){
+    public void vChallenge() {
         exercise.challenge();
         vNum1.setValue(exercise.getNum1());
         vNum2.setValue(exercise.getNum2());
 
     }
 
-    public void vUpdateScore(int type){
-        if(type==0){
+    public void vUpdateUser(ArrayList<User> arr) {
+        users.setValue(arr);
+    }
+
+    public void vUpdateScore(int type) {
+        if (type == 0) {
             user.setScore(10);
-        }
-        else if(type==1){
+        } else if (type == 1) {
             user.setScore(15);
-        }
-        else{
+        } else {
             user.setScore(20);
         }
     }
 
-    public void vUpdateUsername(String name){
+    public void vUpdateUsername(String name) {
         user.setUsername(name);
     }
-public void vUpdateUri(Uri uri){user.setUri(uri);}
-    public Boolean vIsCorrect(String answer){
-        return  exercise.checkCorrect(answer);
+
+    public void vUpdateUri(Uri uri) {
+        user.setUri(uri);
     }
 
-    public long dbAddUser(Context context){
+    public Boolean vIsCorrect(String answer) {
+        return exercise.checkCorrect(answer);
+    }
+
+    public long dbAddUser(Context context) {
         DBHelper db = new DBHelper(context);
-        Log.d("user",user.getUri()+"");
-        long id = db.insert(user,context);
-        Log.d("yair1",id+"");
+        long id = db.insert(user, context);
+        ArrayList<User> arr = db.selectAll(context);
+        vUpdateUser(arr);
         return id;
+    }
+
+    public ArrayList<User> dbSelectAll(Context context){
+        DBHelper db = new DBHelper(context);
+        ArrayList<User> arr = db.selectAll(context);
+        vUpdateUser(arr);
+        return arr;
     }
 
 

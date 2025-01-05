@@ -203,7 +203,12 @@ public class DBHelper extends SQLiteOpenHelper {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Image", null);
-        return Uri.parse(path);
+        if(path != null){
+            return Uri.parse(path);
+        }else{
+            return null;
+        }
+
     }
 
 }
