@@ -18,6 +18,7 @@ public class MainViewModel extends ViewModel {
 
     Exercise exercise;
     User user;
+    User currentUser;
     MutableLiveData<Integer> vNum1;
     MutableLiveData<Integer> vNum2;
     MutableLiveData<ArrayList<User>> users;
@@ -79,6 +80,9 @@ public class MainViewModel extends ViewModel {
 
     public long dbAddUser(Context context) {
         DBHelper db = new DBHelper(context);
+        Log.d("user123",user.getBitmap()+"");
+        Log.d("user123",user.getUri()+"");
+
         long id = db.insert(user, context);
         ArrayList<User> arr = db.selectAll(context);
         vUpdateUser(arr);
@@ -91,6 +95,20 @@ public class MainViewModel extends ViewModel {
         vUpdateUser(arr);
         return arr;
     }
+    public void dbUpdate(Context context){
+        DBHelper db = new DBHelper(context);
+        db.update(currentUser,context);
+        dbSelectAll(context);
+    }
+    public void dbDeleteByID(Context context){
+        DBHelper db = new DBHelper(context);
+        db.deleteById(currentUser.getId());
+        dbSelectAll(context);
+    }
+    public  User getCurrentUser(){
+        return currentUser;
+    }
+
 
 
 }

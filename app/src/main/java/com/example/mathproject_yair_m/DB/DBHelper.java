@@ -10,15 +10,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
+
 import androidx.annotation.Nullable;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.mathproject_yair_m.modals.User;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -95,27 +94,28 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public void deleteById(long id )
+    public void deleteById(long id)
     {
         database = getWritableDatabase(); // get access to write e data
         database.delete(TABLE_RECORD, COLUMN_ID + " = " + id, null);
         database.close(); // close the database
     }
 
-    // update a specific user
-//    public void update(User user,Context context)
-//    {
-//        database = getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(COLUMN_ID, user.getId());
-//        values.put(COLUMN_NAME, user.getUsername());
-//        values.put(COLUMN_RATE, user.getRate());
-//        // stored as Binary Large OBject ->  BLOB
-//        values.put(COLUMN_PICTURE, getBytes(context,user.getUri());
-//        database.update(TABLE_RECORD, values, COLUMN_ID + "=" + user.getId(), null);
-//        database.close();
-//
-//    }
+    public void update(User user,Context context)
+    {
+        database = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, user.getId());
+        values.put(COLUMN_NAME, user.getUsername());
+        values.put(COLUMN_RATE, user.getRate());
+        // stored as Binary Large OBject ->  BLOB
+        values.put(COLUMN_PICTURE,getBytes(user.getBitmap()));
+
+
+        database.update(TABLE_RECORD, values, COLUMN_ID + "=" + user.getId(), null);
+        database.close();
+
+    }
 
     // return all rows in table
     public ArrayList<User> selectAll(Context context){
@@ -131,7 +131,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 Bitmap bitmap = getImage(bytes);
                 @SuppressLint("Range") long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-                User user= new User(name,score,rating,id,getImageUriFromBitmap(context,bitmap));
+                User user= new User(name,score,rating,id,bitmap);
                 users.add(user);
             }
         }
@@ -188,27 +188,22 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 //
 //
-//    // convert from bitmap to byte array
-//    private  byte[] getBytes(Bitmap bitmap) {
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//        return stream.toByteArray();
-//    }
+    // convert from bitmap to byte array
+    private  byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
+    }
 //
 //    // convert from byte array to bitmap
     private  Bitmap getImage(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
-    private Uri getImageUriFromBitmap(Context context, Bitmap bitmap){
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Image", null);
-        if(path != null){
-            return Uri.parse(path);
-        }else{
-            return null;
-        }
-
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
 }

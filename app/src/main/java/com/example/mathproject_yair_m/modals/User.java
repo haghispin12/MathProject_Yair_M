@@ -1,5 +1,6 @@
 package com.example.mathproject_yair_m.modals;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 public class User {
@@ -8,15 +9,16 @@ public class User {
     private  int rate;
     private long id;
     private Uri uri;
+    Bitmap bitmap;
 
     public User(){}
 
-    public User(String username, int score, int rate, long id, Uri uri) {
+    public User(String username, int score, int rate, long id,Bitmap bitmap) {
         this.username = username;
         this.score = score;
         this.rate = rate;
         this.id = id;
-        this.uri = uri;
+        this.bitmap = bitmap;
     }
 
     public int getScore() {
@@ -58,4 +60,5 @@ public class User {
     public void setUri(Uri uri) {
         this.uri = uri;
     }
+    public  Bitmap getBitmap(){return bitmap;}
 }
