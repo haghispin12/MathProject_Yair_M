@@ -37,7 +37,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 .inflate(R.layout.item_view, parent, false);
 
         return new ViewHolder(view);
-
     }
 
     @Override
